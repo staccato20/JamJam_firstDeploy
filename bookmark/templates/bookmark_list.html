@@ -10,37 +10,16 @@
 
 
 <div class="bookmark-list-container">
-    <div class="bookmark-list-head">
-        <h1>000로 저장되어있는 글 목록</h1>
-    </div>
-    <div class="bookmark-list-body">
-        <div class="bookmark-create-btn">
-            <button class="create-btn"><a href={% url 'bookmark_create' %} style="text-decoration:none; text-align:center; content-align:center; font-size:30px;">URL 추가</a></button>
-        </div>
-        
-        <table class="list-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>제목</th>
-                    <th>수정</th>
-                    <th>삭제</th>
-                </tr>
-                </thead>
-                    <tbody>
-                    <th>1</th>
-                    <td><a href="https://www.naver.com/">네이버</a></td>
-                    <td><a href="bookmark_update">수정</a></td>
-                    <td><span class="delete"><a href="bookmark_delete">삭제</a></span></td>
-                </tbody>
-                <tbody>
-                    <th>2</th>
-                    <td><a href="https://www.google.co.kr/">구글</a></td>
-                    <td><a href="bookmark_update">수정</a></td>
-                    <td><span class="delete"><a href="bookmark_delete">삭제</a></span></td>
-                </tbody>
-        </table>
-
-    </div>
+    <h1>{{ book_category }}가 있는 게시글 목록</h1>
+    
+    <a href="{% url 'bookmark_create' %}">생성</a><br>
+    
+    {% for bookmark in book_category.bookmark_set.all %}
+    <tr>
+        <td><a href="{{bookmark.book_url}}">{{bookmark.book_site_name}}</a></td>
+        <td><a href="{% url 'bookmark_update' bookmark.id %}">수정</a></td>
+        <td><a href="{% url 'bookmark_delete' bookmark.id %}">삭제</a></td><br>
+    </tr>
+    {% endfor %}
 </div>
 {% endblock %}
